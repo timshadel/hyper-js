@@ -1,10 +1,11 @@
-require('../lib/magic');
+var hyper = require('..');
 
 var doc = {
   "name": "Bhavesh",
   "employer": { "href": "/employers/acme" }
 };
 
+hyper(doc);
 doc.employer.please.open();
 
 var reg = {
@@ -18,6 +19,7 @@ var reg = {
   }
 };
 
+hyper(reg);
 reg.register.please
   .name("Sam")
   .email("samuel@example.com")

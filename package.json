@@ -20,7 +20,7 @@
     "api"
   ],
   "repository": "https://github.com/timshadel/hyper-js.git",
-  "main": "dom",
+  "main": "lib/hyper",
   "scripts": {
     "test": "mocha"
   },
