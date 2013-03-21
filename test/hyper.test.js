@@ -6,7 +6,6 @@ var doc = {
 };
 
 hyper(doc).employer.open();
-console.log(hyper(doc));
 
 var reg = {
   "register": {
@@ -19,9 +18,9 @@ var reg = {
   }
 };
 
-hyper(reg).register
+hyper(reg)
+  .register
   .name("Sam")
   .email("samuel@example.com")
   .submit();
 
-console.log(hyper(reg));

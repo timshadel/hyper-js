@@ -21,7 +21,7 @@ var doc = {
   "employer": { "href": "/employers/acme" }
 };
 
-hyper(doc).employer.please.open();
+hyper(doc).employer.open();
 
 
 // Results in
@@ -45,7 +45,8 @@ var reg = {
   }
 };
 
-hyper(reg).register.please
+hyper(reg)
+  .register
   .name("Sam")
   .email("samuel@example.com")
   .submit();
