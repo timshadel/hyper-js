@@ -24,3 +24,10 @@ hyper(reg)
   .email("samuel@example.com")
   .submit();
 
+var form = hyper(reg)
+  .register
+  .name("Sam")
+  .email("samuel@example.com");
+
+reg.register.action = '/update';
+form.submit();

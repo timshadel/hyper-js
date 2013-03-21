@@ -57,3 +57,35 @@ hyper(reg)
 //
 // {"name":"Sam","email":"samuel@example.com"}
 ```
+
+The hyper objects are bound to the original JavaScript object, and
+will allow dynamic updates to change how their actions output.
+
+```javascript
+var hyper = require('hyper');
+
+var reg = {
+  "register": {
+    "action": "/register",
+    "method": "POST",
+    "input": {
+      "name": "text",
+      "email": "text"
+    }
+  }
+};
+
+var registration = hyper(reg)
+  .register
+  .name("Sam")
+  .email("samuel@example.com");
+
+reg.register.action = "/updated";
+registration.submit();
+
+// Results in
+//
+// POST /updated HTTP/1.1
+//
+// {"name":"Sam","email":"samuel@example.com"}
+```
