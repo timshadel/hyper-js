@@ -1,4 +1,4 @@
-# hyper-js
+# hyper-js — media type client for Hyper
 
 `hyper-js` is a data browser for the [Hyper][hyper] media type and object
 model in JavaScript. It can be used both as a [component][component] in a
@@ -10,6 +10,8 @@ web browser and as a [node][node] module.
 
 At its core, hyper-js acts quite a bit like [should.js][should]. It lets you
 parse the Hyper format as pure JSON, and then work with it very simply.
+
+[should]: https://github.com/visionmedia/should.js
 
 ```javascript
 var hyper = require('hyper');
