@@ -12,14 +12,16 @@ At its core, hyper-js acts quite a bit like [should.js][should]. It lets you
 parse the Hyper format as pure JSON, and then work with it very simply.
 
 ```javascript
-require('hyper');
+var hyper = require('hyper');
 
 var doc = {
   "name": "Bhavesh",
   "employer": { "href": "/employers/acme" }
 };
 
+hyper(doc);
 doc.employer.please.open();
+
 
 // Results in
 //
@@ -29,6 +31,8 @@ doc.employer.please.open();
 You can also take actions, similar to HTML forms.
 
 ```javascript
+var hyper = require('hyper');
+
 var reg = {
   "register": {
     "action": "/register",
@@ -40,6 +44,7 @@ var reg = {
   }
 };
 
+hyper(reg);
 reg.register.please
   .name("Sam")
   .email("samuel@example.com")
