@@ -19,8 +19,7 @@ var doc = {
   "employer": { "href": "/employers/acme" }
 };
 
-hyper(doc);
-doc.employer.please.open();
+hyper(doc).employer.please.open();
 
 
 // Results in
@@ -44,8 +43,7 @@ var reg = {
   }
 };
 
-hyper(reg);
-reg.register.please
+hyper(reg).register.please
   .name("Sam")
   .email("samuel@example.com")
   .submit();
