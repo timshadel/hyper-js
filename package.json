@@ -1,0 +1,29 @@
+{
+  "name": "hyper",
+  "description": "Hyper media format data client",
+  "version": "0.0.1",
+  "author": "Tim Shadel <tim@shadelsoftware.com>",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "mocha": "*"
+  },
+  "keywords": [
+    "hyper",
+    "hypermedia",
+    "format",
+    "web",
+    "browser",
+    "client",
+    "data",
+    "app",
+    "api"
+  ],
+  "repository": "https://github.com/timshadel/hyper-js.git",
+  "main": "dom",
+  "scripts": {
+    "test": "mocha"
+  },
+  "engines": { "node": "*" }
+}
+
