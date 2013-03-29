@@ -1,22 +1,9 @@
-var hyper = require('..');
-
-var doc = {
-  "name": "Bhavesh",
-  "employer": { "href": "/employers/acme" }
-};
+var hyper = require('..')
+  , http = require('./fake-http')
+  , doc = http.get(0)
+  , reg = http.get(1);
 
 hyper(doc).employer.open();
-
-var reg = {
-  "register": {
-    "action": "/register",
-    "method": "POST",
-    "input": {
-      "name": "text",
-      "email": "text"
-    }
-  }
-};
 
 hyper(reg)
   .register
@@ -29,5 +16,8 @@ var form = hyper(reg)
   .name("Sam")
   .email("samuel@example.com");
 
-reg.register.action = '/update';
-form.submit();
+// TODO
+// form.data.register.action = '/update';
+// form.rewire();
+// form.submit();
+
