@@ -39,7 +39,6 @@ describe('hyper.doc()', function(){
     });
     it('undefined', function(){
       expect(doc(undefined)).to.throwException(/invalid input/i);
-      expect(doc('undefined')).to.throwException(/invalid input/i);
     });
     it('boolean', function(){
       expect(doc(true)).to.throwException(/invalid input/i);
@@ -56,7 +55,7 @@ describe('hyper.doc()', function(){
       expect(doc('I am not valid JSON.')).to.throwException(/invalid json/i);
     });
     it('empty strings', function(){
-      expect(doc('')).to.throwException(/invalid input/i);
+      expect(doc('')).to.throwException(/invalid json/i);
     });
     // JSON may only contain a single top-level object (really??)
     it('valid JSON strings with top-level arrays', function(){
