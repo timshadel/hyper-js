@@ -6,7 +6,8 @@
   "dependencies": {
   },
   "devDependencies": {
-    "mocha": "*"
+    "mocha": "*",
+    "expect.js": "*"
   },
   "keywords": [
     "hyper",

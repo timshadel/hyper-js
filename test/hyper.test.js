@@ -1,23 +1,35 @@
-var hyper = require('..')
-  , http = require('./fake-http')
-  , doc = http.get(0)
-  , reg = http.get(1);
+var expect = require('expect.js');
+var hyper = require('../lib/hyper');
 
-hyper(doc).employer.open();
+describe('a hyper object', function () {
 
-hyper(reg)
-  .register
-  .name("Sam")
-  .email("samuel@example.com")
-  .submit();
+  it('should be able to open()', function () {
+    var doc = {
+      "name": "Bhavesh",
+      "employer": { "href": "/employers/acme" }
+    };
+    var obj = hyper(doc).employer;
+    expect(obj.open).to.be.a('function');
+  });
 
-var form = hyper(reg)
-  .register
-  .name("Sam")
-  .email("samuel@example.com");
+});
 
-// TODO
-// form.data.register.action = '/update';
-// form.rewire();
-// form.submit();
+describe('a hyper action', function () {
+
+  it('should be able to submit()', function () {
+    var doc = {
+      "register": {
+        "action": "/register",
+        "method": "POST",
+        "input": {
+          "name": "text",
+          "email": "text"
+        }
+      }
+    };
+    var obj = hyper(doc).register;
+    expect(obj.submit).to.be.a('function');
+  });
+
+});
 
