@@ -30,6 +30,15 @@ describe('HyperDocument', function(){
       expect(doc.data).to.eql(equivalent);
     });
 
+    it('should make `data` reference read-only', function(){
+      var raw = { "href": "something" };
+      var blank = {};
+      var doc = new HyperDocument(raw, 'http://example.com/resource');
+      doc.data = blank;
+      expect(doc.data).to.not.eql(blank);
+      expect(doc.data).to.eql(raw);
+    });
+
     it('should not change if the raw object is changed', function(done){
       var raw = { "href": "something" };
       var doc = new HyperDocument(raw, 'http://example.com/resource');
