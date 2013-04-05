@@ -12,13 +12,19 @@ describe('HyperDocument', function(){
       var doc = new HyperDocument({ "href": "something" }, 'http://example.com/resource');
       expect(doc).to.be.ok();
       expect(doc.open).to.be.a('function');
-      expect(doc.href).to.not.be.ok();
       expect(doc).to.be.an(EventEmitter);
       doc.on('open', function(href) {
         expect(href).to.equal('http://example.com/something');
         done();
       });
       doc.open();
+    });
+
+    it('should make the original object under the `data` key', function(){
+      var doc = new HyperDocument({ "href": "something" }, 'http://example.com/resource');
+      expect(doc.data).to.be.ok();
+      expect(doc.href).to.not.be.ok();
+      expect(doc.data.href).to.equal("something");
     });
 
     it('valid JSON strings of a single object', function(){
