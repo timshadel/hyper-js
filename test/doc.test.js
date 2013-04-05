@@ -1,67 +1,60 @@
-/**
- * Test dependencies.
- */
-
 var hyper = require('../')
-  , expect = require('expect.js');
+  , HyperDocument = hyper.HyperDocument
+  , expect = require('expect.js')
+  , EventEmitter = require('events').EventEmitter;
 
 
-/**
- * Test `doc` inputs.
- */
+describe('HyperDocument', function(){
 
-function doc(arg) {
-  return function() {
-    hyper.doc(arg);
-  };
-}
+  describe("with an 'href' key", function(){
 
-describe('hyper.doc()', function(){
+    it('should be able to open()', function(done){
+      var doc = new HyperDocument({ "href": "something" }, 'http://example.com/resource');
+      expect(doc).to.be.ok();
+      expect(doc.open).to.be.a('function');
+      expect(doc).to.be.an(EventEmitter);
+      doc.on('open', function(href) {
+        expect(href).to.equal('http://example.com/something');
+        done();
+      });
+      doc.open();
+    });
 
-  describe('should accept', function(){
-    it('plain objects', function(){
-      expect(hyper.doc({})).to.be.a(hyper.HyperDocument);
+    it('should expose the original data under the `data` key', function(){
+      var raw = { "href": "something" };
+      var equivalent = { "href": "something" };
+      var doc = new HyperDocument(raw, 'http://example.com/resource');
+      expect(doc.data).to.not.be(raw);
+      expect(doc.data).to.not.be(equivalent);
+      expect(doc.data).to.eql(raw);
+      expect(doc.data).to.eql(equivalent);
     });
-    it('valid JSON strings of a single object', function(){
-      expect(hyper.doc('{}')).to.be.a(hyper.HyperDocument);
-    });
-  });
 
-  // Test variants of invalid inputs
-  describe('should not accept', function(){
-    it('numbers', function(){
-      expect(doc(6)).to.throwException(/invalid input/i);
-      expect(doc('6')).to.throwException(/invalid input/i);
+    it('should freeze `data`', function(){
+      var raw = { "href": "something" };
+      var blank = {};
+      var doc = new HyperDocument(raw, 'http://example.com/resource');
+      doc.data = blank;
+      expect(doc.data).to.not.eql(blank);
+      expect(doc.data).to.eql(raw);
     });
-    it.skip('regex', function(){
-      expect(doc(/bob/)).to.throwException(/invalid input/i);
-      expect(doc('/bob/')).to.throwException(/invalid input/i);
+
+    it('should not change if the raw object is changed', function(done){
+      var raw = { "href": "something" };
+      var doc = new HyperDocument(raw, 'http://example.com/resource');
+      doc.on('open', function(href) {
+        expect(href).to.equal('http://example.com/something');
+        raw.href = "another-item";
+        doc.removeAllListeners('open');
+        doc.on('open', function(newref) {
+          expect(newref).to.equal('http://example.com/something');
+          done();
+        });
+        doc.open();
+      });
+      doc.open();
     });
-    it('undefined', function(){
-      expect(doc(undefined)).to.throwException(/invalid input/i);
-    });
-    it('boolean', function(){
-      expect(doc(true)).to.throwException(/invalid input/i);
-      expect(doc('true')).to.throwException(/invalid input/i);
-      expect(doc(false)).to.throwException(/invalid input/i);
-      expect(doc('false')).to.throwException(/invalid input/i);
-    });
-    it('null', function(){
-      expect(doc(null)).to.throwException(/invalid input/i);
-      expect(doc('null')).to.throwException(/invalid input/i);
-    });
-    // Strings must be valid JSON
-    it('invalid JSON strings', function(){
-      expect(doc('I am not valid JSON.')).to.throwException(/invalid json/i);
-    });
-    it('empty strings', function(){
-      expect(doc('')).to.throwException(/invalid json/i);
-    });
-    // JSON may only contain a single top-level object (really??)
-    it('valid JSON strings with top-level arrays', function(){
-      expect(doc([])).to.throwException(/array/i);
-      expect(doc('[]')).to.throwException(/array/i);
-    });
+
   });
 
 });
