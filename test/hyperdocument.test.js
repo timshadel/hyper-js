@@ -20,16 +20,17 @@ describe('HyperDocument', function(){
       doc.open();
     });
 
-    it('should make the original object under the `data` key', function(){
+    it('should expose the original data under the `data` key', function(){
       var raw = { "href": "something" };
       var equivalent = { "href": "something" };
       var doc = new HyperDocument(raw, 'http://example.com/resource');
-      expect(doc.data).to.be(raw);
+      expect(doc.data).to.not.be(raw);
       expect(doc.data).to.not.be(equivalent);
+      expect(doc.data).to.eql(raw);
       expect(doc.data).to.eql(equivalent);
     });
 
-    it('should change if the raw object is changed', function(done){
+    it('should not change if the raw object is changed', function(done){
       var raw = { "href": "something" };
       var doc = new HyperDocument(raw, 'http://example.com/resource');
       doc.on('open', function(href) {
@@ -37,7 +38,7 @@ describe('HyperDocument', function(){
         raw.href = "another-item";
         doc.removeAllListeners('open');
         doc.on('open', function(newref) {
-          expect(newref).to.equal('http://example.com/another-item');
+          expect(newref).to.equal('http://example.com/something');
           done();
         });
         doc.open();
