@@ -1,8 +1,15 @@
-var hyper = require('../')
-  , HyperDocument = hyper.HyperDocument
+/**
+ * Module dependencies.
+ */
+
+var HyperDocument = require('../').HyperDocument
   , expect = require('expect.js')
   , EventEmitter = require('events').EventEmitter;
 
+
+/**
+ * Test those docs!
+ */
 
 describe('HyperDocument', function(){
 
