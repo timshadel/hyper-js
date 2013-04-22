@@ -65,20 +65,3 @@ describe('hyper()', function(){
   });
 
 });
-
-
-describe('hyper.browser()', function(){
-  it('should follow links', function(){
-    var raw = { "href": "something" };
-    var browser = new hyper.HyperBrowser(doc);
-    browser.on('request', function(uri, setDoc){
-      if (uri === 'http://example.com/resource') {
-        var inner = new hyper.HyperDocument(raw, uri);
-        setDoc(inner);
-      } else {
-        setDoc({});
-      }
-    });
-    browser.load('http://example.com/resource');
-  });
-});
