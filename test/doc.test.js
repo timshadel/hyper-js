@@ -66,9 +66,9 @@ describe('HyperDocument', function(){
   });
 
 
-  describe("with subdocument", function(){
+  describe("with subdocuments", function(){
 
-    it('should be able to open()', function(done){
+    it('should be able to open() a subdocument', function(done){
       var doc = new HyperDocument({ "href": "something", "employer": { "href": "employer" } }, 'http://example.com/individual');
       expect(doc.employer).to.be.ok();
       expect(doc.employer.open).to.be.a('function');
@@ -81,10 +81,11 @@ describe('HyperDocument', function(){
       doc.employer.open();
     });
 
-    it('should be collect all links', function(){
+    it('should collect all links', function(){
       var doc = new HyperDocument({ "href": "something", "employer": { "href": "employer", "stock": { "href": "stock" } } }, 'http://example.com/individual');
       expect(doc.links).to.be.ok();
       expect(doc.links.length).to.be(3);
+      expect(doc.links).to.eql([doc.employer.stock, doc.employer, doc]);
     });
 
   });
